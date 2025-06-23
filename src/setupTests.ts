@@ -6,10 +6,10 @@ global.TextEncoder = require('util').TextEncoder;
 global.TextDecoder = require('util').TextDecoder;
 
 // Mock para import.meta.env
-global.import = {
-  meta: {
-    env: {
-      VITE_SERVER_URL: 'http://localhost:3000',
-    },
-  },
-}; 
+// global.import = {
+//   meta: {
+//     env: {
+//       VITE_SERVER_URL: 'http://localhost:3000',
+//     },
+//   },
+// }; 
