@@ -90,8 +90,7 @@ export default function Reservations(){
 
     const handlePageChange = async (page:number) => {
         setCurrentPage(page);
-        getPastReservationsFromUser(page);
-        
+        getPastReservationsFromUser(page); 
     }
 
     return (

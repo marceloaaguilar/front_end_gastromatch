@@ -71,6 +71,24 @@ export interface ReservationProps{
   rating?: number
 }
 
+export interface ReservationPropsCreate{
+  id?: number,
+  customer_name: string,
+  customer_cpf: string,
+  customer_email: string,
+  description: string,
+  phone: string,
+  user: number,
+  chef: number,
+  date: Date,
+  location: string,
+  guests: number,
+  notes?: string,
+  mealType: string,
+  dietary_restrictions: string
+  rating?: number
+}
+
 export interface PaginationType {
   currentPage: number 
   totalPages: number

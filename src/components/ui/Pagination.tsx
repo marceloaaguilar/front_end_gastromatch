@@ -5,6 +5,7 @@ import { PaginationType } from "@/src/lib/interfaces";
 const Pagination = ({ currentPage, totalPages, limit, onPageChange }:PaginationType) => {
   const pages = [];
   const limitPages = limit ? limit : 5;
+  
   for (let i = 1; i <= Math.ceil(totalPages/limitPages); i++) {
     pages.push(i);
   }

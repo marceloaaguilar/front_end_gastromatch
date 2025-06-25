@@ -11,6 +11,7 @@ import ChefsPage from './routes/Chefs';
 import Reservations from './routes/Reservations';
 import Chat from './routes/Chat';
 import ChefAgendamentos from './routes/ChefAgendamentos';
+import ChefProfile from './routes/ChefProfile';
 
 
 const App: React.FC = () => {
@@ -33,6 +34,12 @@ const App: React.FC = () => {
             <Route path="/perfil" element={ 
                 <PrivateRoute>
                   <Profile />
+                </PrivateRoute>
+            } />
+
+            <Route path="/chef/:id" element={ 
+                <PrivateRoute>
+                  <ChefProfile />
                 </PrivateRoute>
             } />
 

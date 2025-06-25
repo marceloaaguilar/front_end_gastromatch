@@ -191,8 +191,8 @@ async function getChefList() {
     const response = await fetch(`${getServerUrl()}/api/chefs?limit=4`, {credentials: 'include'});
     const resultChefs = await response.json();
     
-    if (resultChefs && resultChefs.data && resultChefs.data.chefs) {
-        return resultChefs.data.chefs.map((chef:Chef) => { return {id: chef.user.id, name: chef.user.name}});
+    if (resultChefs && resultChefs.chefs && resultChefs.chefs.rows) {
+        return resultChefs.chefs.rows.map((chef:Chef) => { return {id: chef.user.id, name: chef.user.name}});
     }
             
 }

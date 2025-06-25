@@ -11,7 +11,6 @@ import { getServerUrl } from '../utils/env';
 
 const Home = () => {
     
-    const [userData, setUserData] = useState<UserProps | undefined>();
     const [chefs, setChefs] = useState<Chef[]>([]);
     const [busca, setBusca] = useState("");
     const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string>("");
@@ -27,15 +26,14 @@ const Home = () => {
             const response = await fetch(`${getServerUrl()}/api/chefs?limit=4`, {credentials: 'include'});
             const resultChefs = await response.json();
             
-            if (resultChefs && resultChefs.data && resultChefs.data.chefs) {
-                setChefs(resultChefs.data.chefs);
+            if (resultChefs && resultChefs.chefs && resultChefs.chefs.rows) {
+                setChefs(resultChefs.chefs.rows);
             }
         }
 
         fetChefs();
     }, []);
 
-    // Filter chefs based on search term and selected specialty
     const filteredChefs = chefs.filter(chef => {
         const matchesSearch = busca === "" || 
             chef.user.name.toLowerCase().includes(busca.toLowerCase()) ||
@@ -50,7 +48,6 @@ const Home = () => {
 
     return (
         <>  
-            {/* {user && <Sidebar {...user} />} */}
 
             <Header/>
             
@@ -121,28 +118,37 @@ const Home = () => {
                     <h2 className="text-2xl font-bold mb-6 text-gray-800">Chefs Disponíveis</h2>
                     <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {filteredChefs.map((chef) => (
-                            <div
-                                key={chef.id}
-                                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition"
-                            >
-                                <img
-                                src={chef.user.profile_photo}
-                                alt={chef.user.name}
-                                className="w-full h-48 object-cover"
-                                />
-                                <div className="p-4">
+                        <div
+                            key={chef.id}
+                            className="w-72 h-[400px] bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition flex flex-col"
+                        >
+                            <img
+                            src={chef.user.profile_photo}
+                            alt={chef.user.name}
+                            className="w-full h-48 object-cover"
+                            />
+                            
+                            <div className="p-4 flex-1 flex flex-col">
                                 <h3 className="font-semibold text-lg text-gray-800">{chef.user.name}</h3>
                                 <p className="text-sm text-gray-500">{chef.specialization}</p>
                                 {chef.professional_description && (
-                                    <p className="text-xs text-gray-400 mt-2">{chef.professional_description}</p>
+                                    <p className="text-xs text-gray-400 mt-2 line-clamp-3">{chef.professional_description}</p>
                                 )}
-                                <button onClick={()=> (setSelectedChef(chef), setOpenModalReservation(true))} className="mt-4 w-full px-4 py-1 bg-[#ea580c] text-white rounded-md hover:bg-[#d45209] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ea580c]">
+
+                                <div className="mt-auto">
+                                    <button
+                                    onClick={() => {
+                                        setSelectedChef(chef);
+                                        setOpenModalReservation(true);
+                                    }}
+                                    className="mt-4 w-full px-4 py-1 bg-[#ea580c] text-white rounded-md hover:bg-[#d45209] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ea580c]"
+                                    >
                                     Reservar
-                                </button>
+                                    </button>
                                 </div>
                             </div>
+                        </div>
                         ))}
-
                     </div>
 
                     <div className="w-full text-center mt-6">
