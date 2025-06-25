@@ -60,7 +60,6 @@ export default function Chat() {
 
         setSelectedMessages([...selectedMessages, {to: selectedUser?.id, text: messageText, from: userId}]);
         setMessageText("");
-
         sendMessageSocket();
 
         
@@ -71,13 +70,14 @@ export default function Chat() {
         const from = user?.id;
         const to = selectedUser?.id
 
+
         sendMessage(
             JSON.stringify({
                 from: from,
                 to: to,
                 message: messageText
             }
-        ))
+        ));
 
     }
 
